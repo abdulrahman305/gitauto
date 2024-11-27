@@ -11,7 +11,7 @@ class GitAutoAgentManager:
     """Class to manage all GitAuto related operations"""
 
     def __init__(self, client: Client) -> None:
-        self.client = client
+        self.client: Client = client
 
     @handle_exceptions(default_return_value=None, raise_on_error=False)
     def complete_and_update_usage_record(

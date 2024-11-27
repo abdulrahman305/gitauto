@@ -1,6 +1,6 @@
 # Standard imports
 import json
-from typing import Iterable, List, Literal
+from typing import Iterable, List, Literal, Optional, Tuple, Union
 
 # Third-party imports
 from openai import OpenAI
@@ -39,8 +39,16 @@ def chat_with_agent(
     messages: Iterable[ChatCompletionMessageParam],
     base_args: BaseArgs,
     mode: Literal["comment", "commit", "explore", "get"],
-    previous_calls: List[dict] | None = None,
-):
+    previous_calls: Optional[List[dict]] = None,
+) -> Tuple[
+    List[ChatCompletionMessageParam],
+    List[dict],
+    Optional[str],
+    Optional[dict],
+    int,
+    int,
+    bool,
+]:
     """https://platform.openai.com/docs/api-reference/chat/create"""
     if previous_calls is None:
         previous_calls = []
@@ -74,7 +82,7 @@ def chat_with_agent(
         parallel_tool_calls=False,
     )
     choice: Choice = completion.choices[0]
-    tool_calls: List[ChatCompletionMessageToolCall] | None = choice.message.tool_calls
+    tool_calls: Optional[List[ChatCompletionMessageToolCall]] = choice.message.tool_calls
 
     # Calculate tokens for this call
     token_input = count_tokens(messages=messages)

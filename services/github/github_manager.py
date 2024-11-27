@@ -158,7 +158,7 @@ def add_reaction_to_issue(issue_number: int, content: str, base_args: BaseArgs) 
 @handle_exceptions(default_return_value=False, raise_on_error=False)
 def commit_changes_to_remote_branch(
     diff: str, file_path: str, base_args: BaseArgs, message: Optional[str] = None
-):
+) -> str:
     """https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents"""
     if message is None:
         message = f"Update {file_path}"

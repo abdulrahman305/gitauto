@@ -1,7 +1,7 @@
 # Standard imports
 import logging
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional, Tuple
 
 # Third Party imports
 import stripe
@@ -28,7 +28,7 @@ class UsersManager:
     def __init__(self, client: Client) -> None:
         self.client: Client = client
 
-    def check_email_is_valid(self, email: str | None) -> bool:
+    def check_email_is_valid(self, email: Optional[str]) -> bool:
         if email is None:
             return False
         if "@" not in email or "." not in email:
@@ -82,7 +82,7 @@ class UsersManager:
         user_name: str,
         owner_id: int,
         owner_name: str,
-    ) -> tuple[int, int, str]:
+    ) -> Tuple[int, int, str]:
         """Parsing stripe subscription object to get the start date, end date and product id of either a paid or free tier customer subscription"""
         if len(subscription.data) > 2:
             raise ValueError(
@@ -153,7 +153,7 @@ class UsersManager:
         user_name: str,
         owner_id: int,
         owner_name: str,
-    ) -> tuple[int, int, datetime]:
+    ) -> Tuple[int, int, datetime]:
         data, _ = (
             self.client.table(table_name="installations")
             .select("owner_id, owners(stripe_customer_id)")
@@ -215,7 +215,7 @@ class UsersManager:
         )
 
     @handle_exceptions(default_return_value=None, raise_on_error=False)
-    def get_user(self, user_id: int):
+    def get_user(self, user_id: int) -> Optional[dict[str, Any]]:
         """Get user info from the users table"""
         data, _ = (
             self.client.table(table_name="users")
@@ -229,7 +229,7 @@ class UsersManager:
         return None
 
     @handle_exceptions(default_return_value=None, raise_on_error=False)
-    def upsert_user(self, user_id: int, user_name: str, email: str | None) -> None:
+    def upsert_user(self, user_id: int, user_name: str, email: Optional[str]) -> None:
         # Check if email is valid
         email = email if self.check_email_is_valid(email=email) else None
 

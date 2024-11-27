@@ -48,8 +48,8 @@ class App:
     description: str
     external_url: str
     html_url: str
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
     permissions: dict
     events: List[str]
 
@@ -76,8 +76,8 @@ class CheckSuite:
     after: str
     pull_requests: List[PullRequest]
     app: App
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
 
 
 @dataclass
@@ -101,8 +101,8 @@ class CheckRun:
     details_url: str
     status: str
     conclusion: str
-    started_at: datetime
-    completed_at: datetime
+    started_at: datetime.datetime
+    completed_at: datetime.datetime
     output: Output
     check_suite: CheckSuite
     app: App
@@ -121,9 +121,9 @@ class Repository:
     description: str
     fork: bool
     url: str
-    created_at: datetime
-    updated_at: datetime
-    pushed_at: datetime
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
+    pushed_at: datetime.datetime
     git_url: str
     ssh_url: str
     clone_url: str

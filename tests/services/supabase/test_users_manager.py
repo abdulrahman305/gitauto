@@ -455,3 +455,144 @@ def test_handle_user_email_update() -> None:
 
 
 # test_handle_user_email_update()
+
+def test_check_email_is_valid() -> None:
+    """Test the check_email_is_valid function"""
+    supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
+    users_manager = supabase_manager.users_manager
+
+    # Test valid email
+    assert users_manager.check_email_is_valid("test@example.com") is True
+
+    # Test invalid email (None)
+    assert users_manager.check_email_is_valid(None) is False
+
+    # Test invalid email (missing @)
+    assert users_manager.check_email_is_valid("testexample.com") is False
+
+    # Test invalid email (missing .)
+    assert users_manager.check_email_is_valid("test@examplecom") is False
+
+    # Test invalid email (GitHub noreply)
+    assert users_manager.check_email_is_valid(f"test@{GITHUB_NOREPLY_EMAIL_DOMAIN}") is False
+
+
+def test_is_user_eligible_for_seat_handler() -> None:
+    """Test the is_user_eligible_for_seat_handler function"""
+    supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
+    users_manager = supabase_manager.users_manager
+
+    # Clean up at the beginning just in case a prior test failed to clean
+    wipe_installation_owner_user_data()
+
+    # insert data into the db -> create installation
+    supabase_manager.create_installation(
+        installation_id=INSTALLATION_ID,
+        owner_type=OWNER_TYPE,
+        owner_name=OWNER_NAME,
+        owner_id=OWNER_ID,
+        user_id=USER_ID,
+        user_name=USER_NAME,
+        email=TEST_EMAIL,
+    )
+
+    # Test user is eligible for seat
+    assert users_manager.is_user_eligible_for_seat_handler(USER_ID, INSTALLATION_ID, 1) is True
+
+    # Test user is not eligible for seat (quantity exceeded)
+    assert users_manager.is_user_eligible_for_seat_handler(USER_ID, INSTALLATION_ID, 0) is False
+
+    # Clean Up
+    wipe_installation_owner_user_data()
+
+
+def test_get_user() -> None:
+    """Test the get_user function"""
+    supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
+    users_manager = supabase_manager.users_manager
+
+    # Clean up at the beginning just in case a prior test failed to clean
+    wipe_installation_owner_user_data()
+
+    # insert data into the db -> create installation
+    supabase_manager.create_installation(
+        installation_id=INSTALLATION_ID,
+        owner_type=OWNER_TYPE,
+        owner_name=OWNER_NAME,
+        owner_id=OWNER_ID,
+        user_id=USER_ID,
+        user_name=USER_NAME,
+        email=TEST_EMAIL,
+    )
+
+    # Test get_user returns correct user data
+    user_data = users_manager.get_user(USER_ID)
+    assert user_data is not None
+    assert user_data["user_id"] == USER_ID
+    assert user_data["user_name"] == USER_NAME
+
+    # Test get_user returns None for non-existent user
+    assert users_manager.get_user(999999) is None
+
+    # Clean Up
+    wipe_installation_owner_user_data()
+
+
+def test_upsert_user() -> None:
+    """Test the upsert_user function"""
+    supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
+    users_manager = supabase_manager.users_manager
+
+    # Clean up at the beginning just in case a prior test failed to clean
+    wipe_installation_owner_user_data()
+
+    # Insert a user into the database
+    users_manager.upsert_user(USER_ID, USER_NAME, TEST_EMAIL)
+
+    # Verify user data is correct
+    user_data = users_manager.get_user(USER_ID)
+    assert user_data is not None
+    assert user_data["user_id"] == USER_ID
+    assert user_data["user_name"] == USER_NAME
+    assert user_data["email"] == TEST_EMAIL
+
+    # Update user data
+    new_email = "new_email@example.com"
+    users_manager.upsert_user(USER_ID, USER_NAME, new_email)
+
+    # Verify user data is updated
+    user_data = users_manager.get_user(USER_ID)
+    assert user_data is not None
+    assert user_data["user_id"] == USER_ID
+    assert user_data["user_name"] == USER_NAME
+    assert user_data["email"] == new_email
+
+    # Clean Up
+    wipe_installation_owner_user_data()
+
+
+def test_upsert_user_installation() -> None:
+    """Test the upsert_user_installation function"""
+    supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
+    users_manager = supabase_manager.users_manager
+
+    # Clean up at the beginning just in case a prior test failed to clean
+    wipe_installation_owner_user_data()
+
+    # Insert a user installation into the database
+    users_manager.upsert_user_installation(USER_ID, INSTALLATION_ID)
+
+    # Verify user installation data is correct
+    user_installation_data, _ = (
+        supabase_manager.client.table(table_name="user_installations")
+        .select("*")
+        .eq(column="user_id", value=USER_ID)
+        .eq(column="installation_id", value=INSTALLATION_ID)
+        .execute()
+    )
+    assert user_installation_data[1][0]["user_id"] == USER_ID
+    assert user_installation_data[1][0]["installation_id"] == INSTALLATION_ID
+    assert user_installation_data[1][0]["is_selected"] is True
+
+    # Clean Up
+    wipe_installation_owner_user_data()

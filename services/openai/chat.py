@@ -8,7 +8,6 @@ from services.openai.init import create_openai_client
 from services.openai.truncate import truncate_message
 from utils.handle_exceptions import handle_exceptions
 
-
 @handle_exceptions(raise_on_error=True)
 def chat_with_ai(system_input: str, user_input: str) -> str:
     """https://platform.openai.com/docs/api-reference/chat/create"""
