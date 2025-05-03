@@ -1,4 +1,3 @@
-# run this file locally with: python -m tests.services.supabase.test_supabase_users
 
 import datetime
 import os
@@ -65,7 +64,6 @@ def test_create_and_update_user_request_works() -> None:
     )
 
 
-# test_create_and_update_user_request_works()
 
 
 def test_how_many_requests_left() -> None:
@@ -134,7 +132,6 @@ def test_how_many_requests_left() -> None:
     supabase_manager.delete_installation(installation_id=INSTALLATION_ID)
 
 
-# test_how_many_requests_left()
 
 
 def test_is_users_first_issue() -> None:
@@ -171,7 +168,6 @@ def test_is_users_first_issue() -> None:
     wipe_installation_owner_user_data()
 
 
-# test_is_users_first_issue()
 
 
 def test_parse_subscription_object() -> None:
@@ -215,7 +211,6 @@ def test_parse_subscription_object() -> None:
     wipe_installation_owner_user_data()
 
 
-# test_parse_subscription_object()
 
 
 @pytest.mark.asyncio

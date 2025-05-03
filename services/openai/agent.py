@@ -1,4 +1,3 @@
-# Standard imports
 import json
 import logging
 import time
@@ -45,8 +44,6 @@ def create_assistant() -> tuple[Assistant, str]:
             "name": "GitAuto: Automated Issue Resolver",
             "instructions": SYSTEM_INSTRUCTION_FOR_AGENT,
             "tools": [
-                # {"type": "code_interpreter"},
-                # {"type": "retrieval"},
                 {"type": "function", "function": GET_REMOTE_FILE_CONTENT}
             ],
         }
@@ -56,8 +53,6 @@ def create_assistant() -> tuple[Assistant, str]:
             name="GitAuto: Automated Issue Resolver",
             instructions=SYSTEM_INSTRUCTION_FOR_AGENT,
             tools=[
-                # {"type": "code_interpreter"},
-                # {"type": "retrieval"},
                 {"type": "function", "function": GET_REMOTE_FILE_CONTENT},
                 {"type": "function", "function": REASON_FOR_MODYING_DIFF},
             ],
