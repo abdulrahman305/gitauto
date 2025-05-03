@@ -1,4 +1,3 @@
-# run this file locally with: python -m tests.test_stripe
 
 from services.stripe.customer import get_subscription
 
@@ -14,4 +13,3 @@ def test_get_subscription() -> None:
     )
 
 
-# test_get_subscription()

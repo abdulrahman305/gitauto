@@ -1,4 +1,3 @@
-# run this file locally with: python -m tests.services.supabase.test_gitauto_manager
 import os
 from config import OWNER_TYPE
 from services.supabase import SupabaseManager
@@ -55,7 +54,6 @@ def test_create_update_user_request_works() -> None:
     wipe_installation_owner_user_data()
 
 
-# test_create_update_user_request_works()
 
 
 def test_complete_and_update_usage_record_only_updates_one_record() -> None:
