@@ -136,7 +136,6 @@ def test_how_many_requests_left() -> None:
 
 def test_is_users_first_issue() -> None:
     """Check if it's a users first issue."""
-
     supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
 
     # Clean up at the beginning just in case a prior test failed to clean
