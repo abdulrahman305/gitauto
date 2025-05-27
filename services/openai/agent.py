@@ -1,38 +1,32 @@
+import difflib
 import json
 import logging
 import time
 from typing import Any
-import difflib
+
+# Local imports
+from config import OPENAI_FINAL_STATUSES, OPENAI_MODEL_ID, TIMEOUT_IN_SECONDS
+from utils.file_manager import clean_specific_lines, correct_hunk_headers, split_diffs
 
 # Third-party imports
 from openai import OpenAI
 from openai.pagination import SyncCursorPage
 from openai.types.beta import Assistant, Thread
-from openai.types.beta.threads import Run, Message, TextContentBlock
+from openai.types.beta.threads import Message, Run, TextContentBlock
 from openai.types.beta.threads.run_submit_tool_outputs_params import ToolOutput
-
-
-# Local imports
-from config import OPENAI_FINAL_STATUSES, OPENAI_MODEL_ID, TIMEOUT_IN_SECONDS
+from services.github.github_manager import (
+    commit_multiple_changes_to_remote_branch,
+    update_comment,
+)
 from services.openai.functions import (
     GET_REMOTE_FILE_CONTENT,
-    functions,
     REASON_FOR_MODYING_DIFF,
+    functions,
 )
 from services.openai.init import create_openai_client
 from services.openai.instructions import (
     SYSTEM_INSTRUCTION_FOR_AGENT,
     SYSTEM_INSTRUCTION_FOR_AGENT_REVIEW_DIFFS,
-)
-from services.github.github_manager import (
-    commit_multiple_changes_to_remote_branch,
-    update_comment,
-)
-
-from utils.file_manager import (
-    clean_specific_lines,
-    correct_hunk_headers,
-    split_diffs,
 )
 
 
@@ -43,9 +37,7 @@ def create_assistant() -> tuple[Assistant, str]:
         {
             "name": "GitAuto: Automated Issue Resolver",
             "instructions": SYSTEM_INSTRUCTION_FOR_AGENT,
-            "tools": [
-                {"type": "function", "function": GET_REMOTE_FILE_CONTENT}
-            ],
+            "tools": [{"type": "function", "function": GET_REMOTE_FILE_CONTENT}],
         }
     )
     return (

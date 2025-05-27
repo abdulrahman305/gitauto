@@ -1,10 +1,7 @@
-import stripe
-from config import (
-    FREE_TIER_REQUEST_AMOUNT,
-    STRIPE_API_KEY,
-    STRIPE_FREE_TIER_PRICE_ID,
-)
+from config import FREE_TIER_REQUEST_AMOUNT, STRIPE_API_KEY, STRIPE_FREE_TIER_PRICE_ID
 from utils.handle_exceptions import handle_exceptions
+
+import stripe
 
 stripe.api_key = STRIPE_API_KEY
 

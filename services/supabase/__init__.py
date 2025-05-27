@@ -1,4 +1,4 @@
-from supabase import create_client, Client
+from supabase import Client, create_client
 
 from .gitauto_manager import GitAutoAgentManager
 from .users_manager import UsersManager
