@@ -1,6 +1,6 @@
-from openai import OpenAI
-
 from config import OPENAI_API_KEY, OPENAI_ORG_ID
+
+from openai import OpenAI
 
 
 def create_openai_client() -> OpenAI:

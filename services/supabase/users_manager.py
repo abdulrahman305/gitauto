@@ -1,14 +1,16 @@
 import datetime
 import logging
-import stripe
-from supabase import Client
+
 from config import DEFAULT_TIME, STRIPE_FREE_TIER_PRICE_ID
+from utils.handle_exceptions import handle_exceptions
+
+import stripe
 from services.stripe.customer import (
-    get_subscription,
     get_request_count_from_product_id_metadata,
+    get_subscription,
     subscribe_to_free_plan,
 )
-from utils.handle_exceptions import handle_exceptions
+from supabase import Client
 
 
 class UsersManager:

@@ -1,4 +1,4 @@
-from typing import TypedDict, Dict, List, Optional, Union
+from typing import Dict, List, Optional, TypedDict, Union
 
 
 class LabelInfo(TypedDict):
@@ -217,7 +217,8 @@ class GitHubLabeledPayload(TypedDict):
 
 
 class GitHubContentInfo(TypedDict):
-    """ https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28 """
+    """https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28"""
+
     type: str
     encoding: str
     size: int

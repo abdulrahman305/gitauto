@@ -1,12 +1,12 @@
 # Third-party imports
-from openai import OpenAI
-from openai.types.chat import ChatCompletion
-
 # Local imports
 from config import OPENAI_MODEL_ID, OPENAI_TEMPERATURE
+from utils.handle_exceptions import handle_exceptions
+
+from openai import OpenAI
+from openai.types.chat import ChatCompletion
 from services.openai.init import create_openai_client
 from services.openai.instructions import USER_INSTRUCTION
-from utils.handle_exceptions import handle_exceptions
 
 
 @handle_exceptions(default_return_value="", raise_on_error=None)

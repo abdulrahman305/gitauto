@@ -3,23 +3,18 @@ import re
 
 # Local imports
 from config import (
-    PRODUCT_ID,
-    SUPABASE_URL,
-    SUPABASE_SERVICE_ROLE_KEY,
-    PR_BODY_STARTS_WITH,
     ISSUE_NUMBER_FORMAT,
+    PR_BODY_STARTS_WITH,
+    PRODUCT_ID,
+    SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_URL,
 )
-
-from services.github.github_manager import (
-    create_comment_on_issue_with_gitauto_button,
-)
-from services.github.github_types import (
-    GitHubEventPayload,
-    GitHubInstallationPayload,
-)
-from services.supabase import SupabaseManager
-from services.gitauto_handler import handle_gitauto
 from utils.handle_exceptions import handle_exceptions
+
+from services.gitauto_handler import handle_gitauto
+from services.github.github_manager import create_comment_on_issue_with_gitauto_button
+from services.github.github_types import GitHubEventPayload, GitHubInstallationPayload
+from services.supabase import SupabaseManager
 
 # Initialize managers
 supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)

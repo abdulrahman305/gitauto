@@ -6,9 +6,7 @@ from typing import Any
 from openai.types import shared_params
 
 # Local imports
-from services.github.github_manager import (
-    get_remote_file_content,
-)
+from services.github.github_manager import get_remote_file_content
 
 FILE_PATH: dict[str, str] = {
     "type": "string",

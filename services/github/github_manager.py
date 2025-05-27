@@ -12,7 +12,6 @@ from typing import Any
 # Third-party imports
 import jwt  # For generating JWTs (JSON Web Tokens)
 import requests
-from fastapi import Request
 
 # Local imports
 from config import (
@@ -21,21 +20,15 @@ from config import (
     GITHUB_APP_ID,
     GITHUB_APP_IDS,
     GITHUB_PRIVATE_KEY,
+    PRODUCT_ID,
     PRODUCT_NAME,
     PRODUCT_URL,
-    TIMEOUT_IN_SECONDS,
-    PRODUCT_ID,
-    SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_URL,
+    TIMEOUT_IN_SECONDS,
     UTF8,
 )
-from services.github.github_types import (
-    GitHubContentInfo,
-    GitHubLabeledPayload,
-    IssueInfo,
-)
-from services.openai.vision import describe_image
-from services.supabase import SupabaseManager
+from fastapi import Request
 from utils.file_manager import apply_patch, extract_file_name, run_command
 from utils.handle_exceptions import handle_exceptions
 from utils.text_copy import (
@@ -44,6 +37,14 @@ from utils.text_copy import (
     request_issue_comment,
     request_limit_reached,
 )
+
+from services.github.github_types import (
+    GitHubContentInfo,
+    GitHubLabeledPayload,
+    IssueInfo,
+)
+from services.openai.vision import describe_image
+from services.supabase import SupabaseManager
 
 
 @handle_exceptions(default_return_value=None, raise_on_error=True)

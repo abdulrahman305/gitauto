@@ -7,36 +7,33 @@ from uuid import uuid4
 # Local imports
 from config import (
     GITHUB_APP_USER_ID,
-    PRODUCT_ID,
-    SUPABASE_URL,
-    SUPABASE_SERVICE_ROLE_KEY,
-    PR_BODY_STARTS_WITH,
     ISSUE_NUMBER_FORMAT,
+    PR_BODY_STARTS_WITH,
+    PRODUCT_ID,
+    SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_URL,
 )
+from utils.text_copy import (
+    UPDATE_COMMENT_FOR_RAISED_ERRORS_BODY,
+    pull_request_completed,
+    request_limit_reached,
+)
+
 from services.github.github_manager import (
+    add_reaction_to_issue,
+    create_comment,
     create_pull_request,
     create_remote_branch,
     get_installation_access_token,
     get_issue_comments,
     get_latest_remote_commit_sha,
     get_remote_file_tree,
-    create_comment,
     update_comment,
-    add_reaction_to_issue,
 )
-from services.github.github_types import (
-    GitHubLabeledPayload,
-    IssueInfo,
-    RepositoryInfo,
-)
-from services.openai.chat import write_pr_body
+from services.github.github_types import GitHubLabeledPayload, IssueInfo, RepositoryInfo
 from services.openai.agent import run_assistant
+from services.openai.chat import write_pr_body
 from services.supabase import SupabaseManager
-from utils.text_copy import (
-    UPDATE_COMMENT_FOR_RAISED_ERRORS_BODY,
-    pull_request_completed,
-    request_limit_reached,
-)
 
 supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
 
