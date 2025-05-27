@@ -1,10 +1,8 @@
 import os
+
+from config import INSTALLATION_ID, OWNER_ID, USER_ID
+
 from services.supabase import SupabaseManager
-from config import (
-    OWNER_ID,
-    USER_ID,
-    INSTALLATION_ID,
-)
 
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
