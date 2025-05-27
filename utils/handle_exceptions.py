@@ -1,12 +1,12 @@
 # pylint: disable=broad-exception-caught
 
 # Standard imports
+# Third party imports
+import logging
 import time
 from functools import wraps
 from typing import Any, Callable, Tuple, TypeVar
 
-# Third party imports
-import logging
 import requests
 
 F = TypeVar("F", bound=Callable[..., Any])
