@@ -1,6 +1,5 @@
 from services.github.github_types import GitHubEventPayload
 
-
 deleted_payload: GitHubEventPayload = {
     "action": "deleted",
     "installation": {

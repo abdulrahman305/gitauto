@@ -1,9 +1,9 @@
 import os
+
 from config import OWNER_TYPE
+
 from services.supabase import SupabaseManager
-from tests.services.supabase.wipe_data import (
-    wipe_installation_owner_user_data,
-)
+from tests.services.supabase.wipe_data import wipe_installation_owner_user_data
 
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -52,8 +52,6 @@ def test_create_update_user_request_works() -> None:
 
     # Clean Up
     wipe_installation_owner_user_data()
-
-
 
 
 def test_complete_and_update_usage_record_only_updates_one_record() -> None:

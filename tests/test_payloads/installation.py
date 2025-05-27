@@ -9,7 +9,6 @@ from config import (
 )
 from services.github.github_types import GitHubEventPayload
 
-
 installation_payload: GitHubEventPayload = {
     "action": "created",
     "installation": {
@@ -99,7 +98,6 @@ installation_payload: GitHubEventPayload = {
         "site_admin": False,
     },
 }
-
 
 new_installation_payload: GitHubEventPayload = {
     "action": "created",

@@ -1,4 +1,3 @@
-
 from services.stripe.customer import get_subscription
 
 
@@ -11,5 +10,3 @@ def test_get_subscription() -> None:
         subscription["data"][0]["items"]["data"][0]["price"]["id"]
         == "price_1Oz6r2KUN3yUNaHzQQGk7SQ3"
     )
-
-

@@ -1,24 +1,22 @@
-
 import datetime
 import os
-import pytest
 
+import pytest
 from config import (
+    INSTALLATION_ID,
+    NEW_INSTALLATION_ID,
     OWNER_ID,
     OWNER_NAME,
     OWNER_TYPE,
+    UNIQUE_ISSUE_ID,
     USER_ID,
     USER_NAME,
-    INSTALLATION_ID,
-    UNIQUE_ISSUE_ID,
-    NEW_INSTALLATION_ID,
 )
+from services.webhook_handler import handle_webhook_event
+
 from services.stripe.customer import get_subscription
 from services.supabase import SupabaseManager
-from services.webhook_handler import handle_webhook_event
-from tests.services.supabase.wipe_data import (
-    wipe_installation_owner_user_data,
-)
+from tests.services.supabase.wipe_data import wipe_installation_owner_user_data
 from tests.test_payloads.deleted import deleted_payload
 from tests.test_payloads.installation import (
     installation_payload,
@@ -62,8 +60,6 @@ def test_create_and_update_user_request_works() -> None:
         )
         is None
     )
-
-
 
 
 def test_how_many_requests_left() -> None:
@@ -132,8 +128,6 @@ def test_how_many_requests_left() -> None:
     supabase_manager.delete_installation(installation_id=INSTALLATION_ID)
 
 
-
-
 def test_is_users_first_issue() -> None:
     """Check if it's a users first issue."""
     supabase_manager = SupabaseManager(url=SUPABASE_URL, key=SUPABASE_SERVICE_ROLE_KEY)
@@ -165,8 +159,6 @@ def test_is_users_first_issue() -> None:
 
     # Clean Up
     wipe_installation_owner_user_data()
-
-
 
 
 def test_parse_subscription_object() -> None:
@@ -208,8 +200,6 @@ def test_parse_subscription_object() -> None:
 
     # Clean Up
     wipe_installation_owner_user_data()
-
-
 
 
 @pytest.mark.asyncio
