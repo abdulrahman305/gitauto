@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_abdulrahman305_gitauto_1751106808827-push-trigger-input-set
+  identifier: Build_abdulrahman305_gitauto_1751106808827pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_abdulrahman305_gitauto_1751106808827
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
