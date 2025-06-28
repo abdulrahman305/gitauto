@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_abdulrahman305_gitauto_1751106808827-pr-trigger-input-set
+  identifier: Build_abdulrahman305_gitauto_1751106808827prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_abdulrahman305_gitauto_1751106808827
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
