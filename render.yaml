@@ -1,0 +1,14 @@
+# Exported from Render on 2025-06-29T12:10:38Z
+services:
+- type: web
+  name: gitauto
+  runtime: docker
+  repo: https://github.com/abdulrahman305/gitauto
+  plan: free
+  envVars:
+  - fromGroup: env
+  region: virginia
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+  autoDeployTrigger: commit
+version: "1"
