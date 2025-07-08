@@ -52,7 +52,7 @@ python-dotenv==1.0.1
 python-multipart==0.0.18  # required by fastapi
 PyYAML==6.0.1  # required by pre-commit
 realtime==1.0.6
-requests==2.32.3
+requests==2.32.4
 rich==13.7.1  # required by typer
 sentry-sdk==2.8.0
 shellingham==1.5.4  # required by typer
